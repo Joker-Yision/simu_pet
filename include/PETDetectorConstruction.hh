@@ -16,13 +16,15 @@ public:
 
 private:
   // Add any private member variables or methods here
-  G4Material* fWorldMaterial;
-  G4Material* fBgo;
-  G4Material* fDetectorMaterial;
-  
-  G4LogicalVolume* fWorldLogical;
-  G4LogicalVolume* fDetectorLogical;
-  G4LogicalVolume* fBgoLogical;
+  G4Material* fWorldMaterial = nullptr;
+  G4Material* fCryMaterial = nullptr;
+  G4Material* fDetectorMaterial = nullptr;
+  G4Material* fLightGuideMaterial = nullptr;
+  G4Material* fTeflonMaterial = nullptr;
+
+  G4LogicalVolume* fWorldLogical = nullptr;
+  G4LogicalVolume* fDetectorLogical = nullptr;
+  G4LogicalVolume* fCryLogical = nullptr;
 };
 
 #endif
