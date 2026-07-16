@@ -156,5 +156,23 @@ G4VPhysicalVolume* PETDetectorConstruction::DefineVolumes()
     new G4LogicalBorderSurface("CryLightGuideSurface", CryPhysical, lightGuidePhysical, cryLightGuideSurface);
 
 
+    //Define the optical surface between the light guide and the detector
+    G4OpticalSurface* lightGuideDetectorSurface = new G4OpticalSurface("DetectorSurface");
+    lightGuideDetectorSurface->SetType(dielectric_metal);
+    lightGuideDetectorSurface->SetFinish(ground);
+    lightGuideDetectorSurface->SetModel(unified);
+    G4MaterialPropertiesTable* detectorSurfaceMPT = new G4MaterialPropertiesTable();
+    std::vector<G4double> reflectivity(21, 0.1);
+    // std::vector<G4double> efficiency = { 0.055,0.06,0.065,0.07,0.08,
+    //                                      0.09,0.10,0.11,0.13,0.15,
+    //                                      0.17,0.20,0.24,0.28,0.33,
+    //                                      0.37,0.40,0.41,0.40,0.37,0.34 };
+    std::vector<G4double> efficiency(21,1.);
+    detectorSurfaceMPT->AddProperty("REFLECTIVITY", cryPhotonEnergies, reflectivity);
+    detectorSurfaceMPT->AddProperty("EFFICIENCY", cryPhotonEnergies, efficiency);
+    lightGuideDetectorSurface->SetMaterialPropertiesTable(detectorSurfaceMPT);
+    new G4LogicalBorderSurface("LightGuideDetectorSurface", lightGuidePhysical, detectorPhysical, lightGuideDetectorSurface);
+
+    
     return worldPhysical;
 }

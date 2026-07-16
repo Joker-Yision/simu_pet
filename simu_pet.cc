@@ -41,9 +41,10 @@ int main(int argc, char** argv){
     //judge whether start UI session
     G4UIExecutive* ui = nullptr;
     if(argc == 1){ ui = new G4UIExecutive(argc,argv);}
+    
     G4UImanager* uiManager = G4UImanager::GetUIpointer();
     if(!ui){
-        G4String command = "/control/execute";
+        G4String command = "/control/execute ";
         G4String filename = argv[1];
         uiManager->ApplyCommand(command + filename);
     }
@@ -53,6 +54,8 @@ int main(int argc, char** argv){
         delete ui;    
     }
 
+    delete visManager;
+    delete runManager;
     
     return 0;
 }
